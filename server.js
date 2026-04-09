@@ -9,6 +9,7 @@ let latestTemp = null;
 let latestSensor = null;
 
 app.post("/webhook", (req, res) => {
+  console.log("FULL BODY:", JSON.stringify(req.body, null, 2));
   const sensors = req.body.sensorMessages;
 
   if (!sensors || !Array.isArray(sensors)) {
