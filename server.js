@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-app.use(cors()); // 👈 EZ A HIÁNYZÓ RÉSZ
+app.use(cors());
 app.use(express.json());
 
 let latestTemp = null;
@@ -10,6 +10,7 @@ let latestSensor = null;
 
 app.post("/webhook", (req, res) => {
   console.log("FULL BODY:", JSON.stringify(req.body, null, 2));
+
   const sensors = req.body.sensorMessages;
 
   if (!sensors || !Array.isArray(sensors)) {
@@ -31,6 +32,11 @@ app.post("/webhook", (req, res) => {
     sensors.forEach(s => console.log(" -", s.sensorName));
   }
 
+  res.sendStatus(200);
+});
+
+app.get("/webhook", (req, res) => {
+  console.log("GET WEBHOOK HIT");
   res.sendStatus(200);
 });
 
